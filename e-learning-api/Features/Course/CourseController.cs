@@ -1,3 +1,4 @@
+using e_learning_api.Features.Course.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_learning_api.Features.Course;
@@ -14,9 +15,16 @@ public class CourseController: ControllerBase
     }
     
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> GetAll()
     {
         var courses = await _courseService.GetAll();
         return Ok(courses);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(CreateCourseDto payload)
+    {
+        var course = await _courseService.Create(payload);
+        return Ok(course);
     }
 }

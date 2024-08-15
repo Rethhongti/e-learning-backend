@@ -17,4 +17,20 @@ public class CourseService: ICourseService
     {
         return dbContext.Courses.ToListAsync();
     }
+
+    public async Task<CourseEntity> Create(CreateCourseDto payload)
+    {
+        var course = new CourseEntity()
+        {
+            Title = payload.Title,
+            Price = payload.Price,
+            Description = payload.Description,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
+        };
+        await dbContext.Courses.AddAsync(course);
+        await dbContext.SaveChangesAsync();
+
+        return course;
+    }
 }
